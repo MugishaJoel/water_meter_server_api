@@ -28,7 +28,7 @@ const buyToken = async(req,res) =>{
         let lastTokenId = meter.lastTokenId +1;
         let token = final(meterNumber,amount,lastTokenId);
 
-        if (!token || token.length !== 32) {
+        if (!token || token.length !== 24) {
           return res.status(400).json({ message: "Token generation failed" });
         }
 

@@ -62,6 +62,6 @@ function bToken(token) {
   return body.join('') + token.slice(18);
 }
 function final(meterNumber,amount,lastTokenId){
-    return bToken(aToken(meterNumber, amount, lastTokenId).replaceAll('-','')).match(/.{1,4}/g).join(' - ');
+    return bToken(aToken(meterNumber, amount, lastTokenId).replaceAll('-','')).match(/.{1,4}/g).join('-');
 }
 module.exports = {final};

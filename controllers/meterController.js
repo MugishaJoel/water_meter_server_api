@@ -33,6 +33,7 @@ const buyToken = async(req,res) =>{
         }
 
          meter.lastTokenId = lastTokenId;
+         meter.lastToken = token;
          await meter.save();
        
          return res.json({
@@ -69,4 +70,26 @@ const addUser = async(req,res)=>{
     }
 }
 
-module.exports={getUser,buyToken,addUser}
+const getLastToken = async (req, res) => {
+  try {
+    const { meterNumber } = req.body;
+
+    const meter = await Reading.findOne({ meter: meterNumber });
+
+    if (!meter) {
+      return res.status(404).json({ message: "Meter not found" });
+    }
+
+    if (!meter.lastToken) {
+      return res.status(404).json({ message: "No token found" });
+    }
+
+    return res.json({ token: meter.lastToken });
+
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "Server error" });
+  }
+};
+
+module.exports={getUser,buyToken,addUser,getLastToken}

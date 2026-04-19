@@ -1,5 +1,5 @@
 const {final} = require('../utils/getToken');
-const Reading = require('../models/Reading');
+const {Reading,Tokens} = require('../models/Reading');
 
 const getUser = async(req,res)=>{
     try{
@@ -35,7 +35,20 @@ const buyToken = async(req,res) =>{
          meter.lastTokenId = lastTokenId;
          meter.lastToken = token;
          await meter.save();
-       
+
+         const saveToken = await Tokens.create({
+            meter:meterNumber,
+            amount,
+            token
+         });
+
+         if(saveToken){
+          console.log("Token saved!");
+         }
+         else{
+          console.log("Error while saving token");
+         }
+
          return res.json({
             token:token
          });
@@ -92,4 +105,28 @@ const getLastToken = async (req, res) => {
   }
 };
 
-module.exports={getUser,buyToken,addUser,getLastToken}
+const getAllToken = async (req, res) => {
+  try {
+    const { meterNumber } = req.body;
+
+    const meterHistory = await Tokens.find({ meter: meterNumber }.sort({Timestamp:-1}));
+
+    if (!meterHistory) {
+      return res.status(404).json({ message: "Meter not found" });
+    }
+
+    return res.json({meterHistory});
+
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "Server error" });
+  }
+};
+
+module.exports= {
+  getUser,
+  buyToken,
+  addUser,
+  getLastToken,
+  getAllToken
+}

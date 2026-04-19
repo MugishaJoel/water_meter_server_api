@@ -9,7 +9,7 @@ const readingSchema = new mongoose.Schema({
 });
 
 const readingSchema1 = new mongoose.Schema({
-  meter: { type: String, required: true, unique: true },
+  meter: { type: String, required: true},
   amount: { type: Number, required: true },
   token: { type: String, required: true },
   timestamp: { type: Date, default: Date.now },

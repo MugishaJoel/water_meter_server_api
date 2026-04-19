@@ -16,9 +16,9 @@ const tokenSchema = new mongoose.Schema({
 });
 
 const Reading = mongoose.model('Reading', readingSchema);
-const Tokens = mongoose.model('Tokens', tokenSchema);
+const TokenT = mongoose.model('TokenT', tokenSchema);
 
 module.exports = {
   Reading,
-  Tokens
+  TokenT
 }

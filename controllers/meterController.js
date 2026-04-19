@@ -1,5 +1,5 @@
 const {final} = require('../utils/getToken');
-const {Reading,Tokens} = require('../models/Reading');
+const {Reading,TokenT} = require('../models/Reading');
 
 const getUser = async(req,res)=>{
     try{
@@ -36,7 +36,7 @@ const buyToken = async(req,res) =>{
          meter.lastToken = token;
          await meter.save();
 
-         const saveToken = await Tokens.create({
+         const saveToken = await TokenT.create({
             meter:meterNumber,
             amount,
             token
@@ -109,7 +109,7 @@ const getAllToken = async (req, res) => {
   try {
     const { meterNumber } = req.body;
 
-    const meterHistory = await Tokens.find({ meter: meterNumber }).sort({Timestamp:-1});
+    const meterHistory = await TokenT.find({ meter: meterNumber }).sort({Timestamp:-1});
 
     if (!meterHistory) {
       return res.status(404).json({ message: "Meter not found" });

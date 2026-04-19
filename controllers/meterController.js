@@ -109,7 +109,7 @@ const getAllToken = async (req, res) => {
   try {
     const { meterNumber } = req.body;
 
-    const meterHistory = await Tokens.find({ meter: meterNumber }.sort({Timestamp:-1}));
+    const meterHistory = await Tokens.find({ meter: meterNumber }).sort({Timestamp:-1});
 
     if (!meterHistory) {
       return res.status(404).json({ message: "Meter not found" });

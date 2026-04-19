@@ -8,7 +8,7 @@ const readingSchema = new mongoose.Schema({
   timestamp: { type: Date, default: Date.now },
 });
 
-const readingSchema1 = new mongoose.Schema({
+const tokenSchema = new mongoose.Schema({
   meter: { type: String, required: true},
   amount: { type: Number, required: true },
   token: { type: String, required: true },
@@ -16,7 +16,7 @@ const readingSchema1 = new mongoose.Schema({
 });
 
 const Reading = mongoose.model('Reading', readingSchema);
-const Tokens = mongoose.model('Tokens', readingSchema1);
+const Tokens = mongoose.model('Tokens', tokenSchema);
 
 module.exports = {
   Reading,
